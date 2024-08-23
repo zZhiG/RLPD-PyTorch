@@ -26,16 +26,8 @@ def combine(one_dict, other_dict, device):
     combined = {}
 
     for k, v in one_dict.items():
-        if isinstance(v, dict):
-            combined[k] = combine(v, other_dict[k])
-        else:
-            tmp = torch.empty(
-                (v.shape[0] + other_dict[k].shape[0], *v.shape[1:]), dtype=v.dtype
-            ).to(device)
-            tmp[0::2] = v
-            tmp[1::2] = other_dict[k]
-            combined[k] = tmp
-
+        tmp = torch.cat([v, other_dict[k]], dim=0).to(device) # 顺序拼接
+        combined[k] = tmp
     return combined
 
 def main():
