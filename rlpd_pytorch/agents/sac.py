@@ -85,10 +85,11 @@ class SAC(object):
             next_t_q = torch.cat([next_t_q1, next_t_q2], dim=1)
             next_t_q, _ = torch.min(next_t_q, dim=1)
 
-            target_q = mini_batch['rewards'].unsqueeze(1) + self.discount * mini_batch['masks'].unsqueeze(1) * next_t_q
-
             if self.back_entropy:
-                target_q -= (self.discount * mini_batch['masks'].unsqueeze(1) * next_log_prob * self.temperatur())
+                target_q = mini_batch['rewards'].unsqueeze(1) + self.discount * mini_batch['masks'].unsqueeze(1) \
+                           * (next_t_q - self.temperatur() * next_log_prob)
+            else:
+                target_q = mini_batch['rewards'].unsqueeze(1) + self.discount * mini_batch['masks'].unsqueeze(1) * next_t_q
 
         q1, q2 = self.critic(mini_batch['obs'], mini_batch['actions'])
         q_loss = F.mse_loss(q1, target_q) + F.mse_loss(q2, target_q)
