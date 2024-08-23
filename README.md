@@ -15,6 +15,10 @@ You can use the default configuration by running the ```train.py``` directly. Of
 python train.py
 ```
 
+Also provided is a validated test code:
+```
+python eval.py --weight-path='your path'
+```
 ## Dependencies
 ```
 numpy == 1.26.4
