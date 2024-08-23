@@ -12,6 +12,9 @@ If this is helpful to you, could you give me a star :star:.
 ## Show
 We trained and validated the framework on ```HalfCheetah-v2``` to be effective:
 
+<div align=center>
+<img src="demo/demo001.gif" width="600px">
+</div>
 
 ## Quick start
 You can use the default configuration by running the ```train.py``` directly. Of course, you can also change the configuration manually.
