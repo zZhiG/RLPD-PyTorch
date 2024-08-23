@@ -9,6 +9,10 @@ For a more detailed description, you can read the original paper and source code
 
 If this is helpful to you, could you give me a star :star:.
 
+## Show
+We trained and validated the framework on ```HalfCheetah-v2``` to be effective:
+
+
 ## Quick start
 You can use the default configuration by running the ```train.py``` directly. Of course, you can also change the configuration manually.
 ```
