@@ -3,7 +3,7 @@
 ## Introduction
 This is a reproduction of an excellent work by ICML 2023, the work proposes the use of off-policy method and offline data in the online learning. It is very meaningful, as the idea can be applied to many scenarios.
 
-Therefore, we modified and refactored its code, building a simple framework. A simple test was conducted on one of the environments, and it worked. Many of these parts may not be perfect, as we hope to use the framework in specific tasks in the future. So many places are not flexible enough and only provide simple examples.
+Therefore, we modified and refactored its code, building a simple framework. A simple test was conducted on one of the environments, and it worked. Many of these parts may not be perfect, as we hope to use the framework in specific tasks in the future. So many places are not flexible enough and only provide simple examples. (For example, you can customize the environment, add different wrappers, modify networks, etc. to adapt to different tasks.)
 
 For a more detailed description, you can read the original paper and source code.
 
