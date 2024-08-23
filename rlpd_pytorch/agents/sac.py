@@ -1,3 +1,5 @@
+import time
+
 import torch
 from torch.optim import Adam
 import torch.nn.functional as F
@@ -70,7 +72,7 @@ class SAC(object):
         q = torch.cat([q1, q2], dim=1)
         q, _ = torch.min(q, dim=1) # 也可以是均值
 
-        loss = (log_prob * self.temperatur() - q).mean()
+        loss = (log_prob * self.temperatur() - q.unsqueeze(1)).mean()
 
         self.actor_optim.zero_grad()
         loss.backward()
@@ -87,9 +89,10 @@ class SAC(object):
 
             if self.back_entropy:
                 target_q = mini_batch['rewards'].unsqueeze(1) + self.discount * mini_batch['masks'].unsqueeze(1) \
-                           * (next_t_q - self.temperatur() * next_log_prob)
+                           * (next_t_q.unsqueeze(1) - self.temperatur() * next_log_prob)
             else:
-                target_q = mini_batch['rewards'].unsqueeze(1) + self.discount * mini_batch['masks'].unsqueeze(1) * next_t_q
+                target_q = mini_batch['rewards'].unsqueeze(1) + \
+                           self.discount * mini_batch['masks'].unsqueeze(1) * next_t_q.unsqueeze(1)
 
         q1, q2 = self.critic(mini_batch['obs'], mini_batch['actions'])
         q_loss = F.mse_loss(q1, target_q) + F.mse_loss(q2, target_q)
