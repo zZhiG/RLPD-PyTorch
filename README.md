@@ -7,6 +7,8 @@ Therefore, we modified and refactored its code, building a simple framework. A s
 
 For a more detailed description, you can read the original paper and source code.
 
+If this is helpful to you, could you give me a star :star:.
+
 ## Quick start
 You can use the default configuration by running the ```train.py``` directly. Of course, you can also change the configuration manually.
 ```
