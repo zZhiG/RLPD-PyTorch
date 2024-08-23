@@ -8,4 +8,4 @@ class Temperature(nn.Module):
         self.temperature = nn.Parameter(torch.tensor(init_temperature), requires_grad=True)
 
     def forward(self):
-        return self.temperature
+        return self.temperature.exp()
