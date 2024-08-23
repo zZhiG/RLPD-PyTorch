@@ -19,6 +19,7 @@ class SAC(object):
 
         self.actor = Actor(obs_shape[0], action_shape[0], hidden_dim, mlp_layers).to(device)
         self.critic = Critic(obs_shape[0], action_shape[0], hidden_dim, mlp_layers).to(device)
+
         self.critic_target = Critic(obs_shape[0], action_shape[0], hidden_dim, mlp_layers).to(device)
         self.temperatur = Temperature(init_temp).to(device)
 
@@ -54,8 +55,7 @@ class SAC(object):
 
     def update_temp(self, mini_batch):
         action, log_prob, mean, mean_tanh = self.actor.sample(mini_batch['obs'])
-
-        loss = -(self.temperatur().log() * (log_prob + self.target_entropy)).mean()
+        loss = self.temperatur() * (-log_prob.mean() - self.target_entropy).mean()
 
         self.temp_optim.zero_grad()
         loss.backward()
@@ -68,7 +68,7 @@ class SAC(object):
 
         q1, q2 = self.critic(mini_batch['obs'], action)
         q = torch.cat([q1, q2], dim=1)
-        q, _ = torch.min(q, dim=1)
+        q, _ = torch.min(q, dim=1) # 也可以是均值
 
         loss = (log_prob * self.temperatur() - q).mean()
 
