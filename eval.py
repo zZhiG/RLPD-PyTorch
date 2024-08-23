@@ -23,8 +23,7 @@ def main():
     env = wrap_gym(env, device, True)  # 包装
     env.seed(args.seed)
 
-    weight_path = r'log/seed42_pretrain1_LN_steps1e+06_batch256x2/2024.08.23.12.06.58/checkpoints/454999.pt'
-    weights = torch.load(weight_path, map_location='cuda:0')
+    weights = torch.load(args.weight_path, map_location='cuda:0')
     actor = weights['actor']
     critic = weights['critic']
 
