@@ -55,7 +55,7 @@ class SAC(object):
     def update_temp(self, mini_batch):
         action, log_prob, mean, mean_tanh = self.actor.sample(mini_batch['obs'])
 
-        loss = -(self.temperatur() * (log_prob + self.target_entropy)).mean()
+        loss = -(self.temperatur().log() * (log_prob + self.target_entropy)).mean()
 
         self.temp_optim.zero_grad()
         loss.backward()
