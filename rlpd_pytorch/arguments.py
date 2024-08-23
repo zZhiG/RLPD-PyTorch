@@ -20,6 +20,7 @@ def get_Configs():
     parser.add_argument('--offline-data-path', type=str, default='data/halfcheetah_v2')  # 直接给出offline数据集地址
     parser.add_argument('--cuda', type=bool, default=True)  # 是否使用cuda
     parser.add_argument('--mlp-layers', type=int, default=2)  # mlp的层数
+    parser.add_argument('--weight-path', type=str, default='log/seed42_pretrain1_LN_steps1e+06_batch256x2/2024.08.23.12.06.58/checkpoints/454999.pt') # 测试权重路径
 
     # agent相关设置
     parser.add_argument('--actor-lr', type=float, default=3e-4)  # actor的学习率
